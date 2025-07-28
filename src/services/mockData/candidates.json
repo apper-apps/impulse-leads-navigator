@@ -1,0 +1,421 @@
+[
+  {
+    "Id": 1,
+    "name": "Sarah Johnson",
+    "department": "Executive Leadership",
+    "portfolio": "Strategic Planning & Operations",
+    "credentials": [
+      "MBA in Healthcare Administration",
+      "Certified Healthcare Executive (CHE)",
+      "Fellow, American College of Healthcare Executives"
+    ],
+    "lengthOfService": 8,
+    "performanceRating": "Exceeds",
+    "potentialRating": "High",
+    "leadershipAccomplishments": "Led successful merger of three healthcare facilities, resulting in 25% cost reduction and improved patient outcomes. Implemented digital transformation initiative that increased operational efficiency by 30%.",
+    "demonstratedStrengths": "Strategic thinking, stakeholder engagement, change management, financial acumen, and team leadership. Exceptional ability to navigate complex regulatory environments.",
+    "workHistory": [
+      {
+        "title": "Chief Operating Officer",
+        "division": "Executive Office",
+        "startDate": "2020-01-15",
+        "endDate": "",
+        "isExternal": false
+      },
+      {
+        "title": "Director of Strategic Planning",
+        "division": "Planning & Development",
+        "startDate": "2017-03-01",
+        "endDate": "2019-12-31",
+        "isExternal": false
+      },
+      {
+        "title": "Senior Healthcare Consultant",
+        "division": "McKinsey & Company",
+        "startDate": "2015-06-01",
+        "endDate": "2017-02-28",
+        "isExternal": true
+      }
+    ],
+    "education": [
+      {
+        "institution": "Harvard Business School",
+        "program": "Master of Business Administration",
+        "level": "Master"
+      },
+      {
+        "institution": "Johns Hopkins University",
+        "program": "Bachelor of Science in Public Health",
+        "level": "Bachelor"
+      }
+    ],
+    "developmentPlan": {
+      "keyAreas": "Board governance, healthcare policy development, international healthcare systems",
+      "actions": "Enroll in Harvard Kennedy School executive program on healthcare policy. Shadow board meetings. Complete international healthcare fellowship."
+    },
+    "retentionProfile": {
+      "factors": "Mission-driven work, leadership opportunities, competitive compensation, professional development support",
+      "reasonForLeaving": "Opportunity for CEO role at another health system",
+      "impactOfLoss": "High",
+      "riskOfLoss": "Medium"
+    },
+    "leadsScores": {
+      "leadSelf": {
+        "behavioralLevel": "4",
+        "evidence": "Demonstrates exceptional self-awareness and emotional intelligence. Regularly seeks feedback and acts on development opportunities.",
+        "developmentNeeded": "Minimal",
+        "notes": "Continue executive coaching to refine leadership presence."
+      },
+      "engageOthers": {
+        "behavioralLevel": "5",
+        "evidence": "Built strong relationships across all levels of the organization. Successfully led cross-functional teams through major initiatives.",
+        "developmentNeeded": "Minimal",
+        "notes": "Natural connector and influencer."
+      },
+      "achieveResults": {
+        "behavioralLevel": "5",
+        "evidence": "Consistently exceeds targets. Led organization to achieve best-in-class quality metrics and financial performance.",
+        "developmentNeeded": "Minimal",
+        "notes": "Exceptional track record of delivery."
+      },
+      "developCoalitions": {
+        "behavioralLevel": "4",
+        "evidence": "Successfully navigated complex stakeholder relationships during merger. Built strong community partnerships.",
+        "developmentNeeded": "Moderate",
+        "notes": "Could benefit from more exposure to government relations."
+      },
+      "systemsTransformation": {
+        "behavioralLevel": "4",
+        "evidence": "Led digital transformation and cultural change initiatives. Implemented new operating model successfully.",
+        "developmentNeeded": "Moderate",
+        "notes": "Strong change leader, continue developing systems thinking."
+      }
+    },
+    "totalLeadsScore": 22.0,
+    "readinessRating": "Ready",
+    "timeToReadiness": "<1 year",
+    "developmentPathway": "Minimal"
+  },
+  {
+    "Id": 2,
+    "name": "Michael Chen",
+    "department": "Clinical Services",
+    "portfolio": "Quality & Patient Safety",
+    "credentials": [
+      "MD, Internal Medicine",
+      "Master of Public Health",
+      "Board Certified in Quality Improvement"
+    ],
+    "lengthOfService": 12,
+    "performanceRating": "Exceeds",
+    "potentialRating": "High",
+    "leadershipAccomplishments": "Reduced hospital-acquired infections by 40% through innovative quality improvement programs. Led implementation of electronic health records across all facilities.",
+    "demonstratedStrengths": "Clinical excellence, quality improvement expertise, data-driven decision making, physician leadership, patient advocacy.",
+    "workHistory": [
+      {
+        "title": "Chief Medical Officer",
+        "division": "Clinical Affairs",
+        "startDate": "2019-07-01",
+        "endDate": "",
+        "isExternal": false
+      },
+      {
+        "title": "Director of Quality Improvement",
+        "division": "Quality & Safety",
+        "startDate": "2016-01-15",
+        "endDate": "2019-06-30",
+        "isExternal": false
+      },
+      {
+        "title": "Senior Quality Consultant",
+        "division": "Institute for Healthcare Improvement",
+        "startDate": "2014-03-01",
+        "endDate": "2015-12-31",
+        "isExternal": true
+      }
+    ],
+    "education": [
+      {
+        "institution": "University of California, San Francisco",
+        "program": "Doctor of Medicine",
+        "level": "Doctorate"
+      },
+      {
+        "institution": "Harvard T.H. Chan School of Public Health",
+        "program": "Master of Public Health",
+        "level": "Master"
+      }
+    ],
+    "developmentPlan": {
+      "keyAreas": "Financial management, business operations, strategic planning beyond clinical areas",
+      "actions": "Complete healthcare finance certificate program. Shadow COO for operational exposure. Join strategic planning committee."
+    },
+    "retentionProfile": {
+      "factors": "Clinical mission, quality improvement impact, research opportunities, collegial environment",
+      "reasonForLeaving": "Academic medical center opportunity with research focus",
+      "impactOfLoss": "High",
+      "riskOfLoss": "Low"
+    },
+    "leadsScores": {
+      "leadSelf": {
+        "behavioralLevel": "4",
+        "evidence": "Strong self-awareness and commitment to continuous learning. Excellent at managing competing priorities.",
+        "developmentNeeded": "Minimal",
+        "notes": "Continue developing executive presence outside clinical settings."
+      },
+      "engageOthers": {
+        "behavioralLevel": "4",
+        "evidence": "Highly respected by physicians and staff. Effective at building consensus among diverse clinical teams.",
+        "developmentNeeded": "Moderate",
+        "notes": "Expand influence beyond clinical areas to administrative functions."
+      },
+      "achieveResults": {
+        "behavioralLevel": "5",
+        "evidence": "Exceptional track record in quality improvement. Consistently achieves clinical outcome targets.",
+        "developmentNeeded": "Minimal",
+        "notes": "Outstanding clinical results focus."
+      },
+      "developCoalitions": {
+        "behavioralLevel": "3",
+        "evidence": "Good relationships within healthcare community. Some experience with external partnerships.",
+        "developmentNeeded": "Extensive",
+        "notes": "Needs more exposure to community and business partnerships."
+      },
+      "systemsTransformation": {
+        "behavioralLevel": "4",
+        "evidence": "Led successful EHR implementation. Strong understanding of clinical systems and processes.",
+        "developmentNeeded": "Moderate",
+        "notes": "Expand systems thinking beyond clinical operations."
+      }
+    },
+    "totalLeadsScore": 20.0,
+    "readinessRating": "Developing",
+    "timeToReadiness": "1-2 years",
+    "developmentPathway": "Moderate"
+  },
+  {
+    "Id": 3,
+    "name": "Jennifer Martinez",
+    "department": "Finance",
+    "portfolio": "Financial Planning & Analysis",
+    "credentials": [
+      "CPA",
+      "MBA in Finance",
+      "Certified Healthcare Financial Professional"
+    ],
+    "lengthOfService": 6,
+    "performanceRating": "Meets",
+    "potentialRating": "Medium",
+    "leadershipAccomplishments": "Implemented new budgeting process that improved accuracy by 30%. Led successful bond issuance of $100M for capital improvements.",
+    "demonstratedStrengths": "Financial analysis, budgeting and forecasting, regulatory compliance, team development, process improvement.",
+    "workHistory": [
+      {
+        "title": "Director of Financial Planning",
+        "division": "Finance",
+        "startDate": "2021-02-01",
+        "endDate": "",
+        "isExternal": false
+      },
+      {
+        "title": "Senior Financial Analyst",
+        "division": "Finance",
+        "startDate": "2018-06-15",
+        "endDate": "2021-01-31",
+        "isExternal": false
+      },
+      {
+        "title": "Financial Analyst",
+        "division": "PwC Healthcare Practice",
+        "startDate": "2016-08-01",
+        "endDate": "2018-05-31",
+        "isExternal": true
+      }
+    ],
+    "education": [
+      {
+        "institution": "University of Pennsylvania Wharton School",
+        "program": "Master of Business Administration",
+        "level": "Master"
+      },
+      {
+        "institution": "Georgetown University",
+        "program": "Bachelor of Science in Accounting",
+        "level": "Bachelor"
+      }
+    ],
+    "developmentPlan": {
+      "keyAreas": "Leadership presence, strategic thinking, clinical operations understanding, stakeholder management",
+      "actions": "Participate in leadership development program. Shadow clinical leaders. Join cross-functional strategic initiatives."
+    },
+    "retentionProfile": {
+      "factors": "Growth opportunities, mentorship, work-life balance, healthcare mission alignment",
+      "reasonForLeaving": "Limited advancement opportunities or better compensation elsewhere",
+      "impactOfLoss": "Medium",
+      "riskOfLoss": "Medium"
+    },
+    "readinessRating": "Developing",
+    "timeToReadiness": "2-3 years",
+    "developmentPathway": "Moderate"
+  },
+  {
+    "Id": 4,
+    "name": "David Thompson",
+    "department": "Operations",
+    "portfolio": "Facilities & Infrastructure",
+    "credentials": [
+      "Master of Engineering",
+      "Project Management Professional (PMP)",
+      "Certified Facility Manager"
+    ],
+    "lengthOfService": 15,
+    "performanceRating": "Meets",
+    "potentialRating": "Medium",
+    "leadershipAccomplishments": "Managed $50M facility expansion project completed on time and under budget. Implemented energy efficiency program saving $2M annually.",
+    "demonstratedStrengths": "Project management, technical expertise, vendor management, problem-solving, operational efficiency.",
+    "workHistory": [
+      {
+        "title": "Director of Facilities",
+        "division": "Operations",
+        "startDate": "2015-04-01",
+        "endDate": "",
+        "isExternal": false
+      },
+      {
+        "title": "Senior Project Manager",
+        "division": "Capital Projects",
+        "startDate": "2010-09-15",
+        "endDate": "2015-03-31",
+        "isExternal": false
+      },
+      {
+        "title": "Construction Manager",
+        "division": "Turner Construction",
+        "startDate": "2008-01-01",
+        "endDate": "2010-08-31",
+        "isExternal": true
+      }
+    ],
+    "education": [
+      {
+        "institution": "Virginia Tech",
+        "program": "Master of Engineering",
+        "level": "Master"
+      },
+      {
+        "institution": "Virginia Tech",
+        "program": "Bachelor of Science in Civil Engineering",
+        "level": "Bachelor"
+      }
+    ],
+    "developmentPlan": {
+      "keyAreas": "Strategic leadership, financial acumen, healthcare operations, communication skills",
+      "actions": "Complete executive MBA program. Participate in healthcare leadership institute. Develop public speaking skills."
+    },
+    "retentionProfile": {
+      "factors": "Challenging projects, job security, team relationships, technical autonomy",
+      "reasonForLeaving": "Retirement planning or private sector opportunity",
+      "impactOfLoss": "Medium",
+      "riskOfLoss": "Low"
+    },
+    "readinessRating": "Not Ready",
+    "timeToReadiness": "2-3 years",
+    "developmentPathway": "Extensive"
+  },
+  {
+    "Id": 5,
+    "name": "Lisa Wang",
+    "department": "Human Resources",
+    "portfolio": "Talent Development & Organizational Effectiveness",
+    "credentials": [
+      "Master of Organizational Psychology",
+      "SHRM-SCP Certification",
+      "Certified Executive Coach"
+    ],
+    "lengthOfService": 7,
+    "performanceRating": "Exceeds",
+    "potentialRating": "High",
+    "leadershipAccomplishments": "Designed and implemented comprehensive leadership development program reaching 500+ leaders. Reduced turnover by 25% through innovative retention strategies.",
+    "demonstratedStrengths": "Organizational development, leadership coaching, change management, talent assessment, employee engagement.",
+    "workHistory": [
+      {
+        "title": "Director of Talent Development",
+        "division": "Human Resources",
+        "startDate": "2020-01-01",
+        "endDate": "",
+        "isExternal": false
+      },
+      {
+        "title": "Senior Organizational Development Consultant",
+        "division": "Human Resources",
+        "startDate": "2017-08-15",
+        "endDate": "2019-12-31",
+        "isExternal": false
+      },
+      {
+        "title": "Management Consultant",
+        "division": "Deloitte Consulting",
+        "startDate": "2014-07-01",
+        "endDate": "2017-07-31",
+        "isExternal": true
+      }
+    ],
+    "education": [
+      {
+        "institution": "Columbia University",
+        "program": "Master of Arts in Organizational Psychology",
+        "level": "Master"
+      },
+      {
+        "institution": "University of California, Berkeley",
+        "program": "Bachelor of Arts in Psychology",
+        "level": "Bachelor"
+      }
+    ],
+    "developmentPlan": {
+      "keyAreas": "Business acumen, healthcare operations knowledge, financial management, board relations",
+      "actions": "Complete healthcare executive program. Shadow senior executives. Develop financial literacy through targeted coursework."
+    },
+    "retentionProfile": {
+      "factors": "Meaningful work, professional development, collaborative culture, leadership opportunities",
+      "reasonForLeaving": "Chief Human Resources Officer role at larger organization",
+      "impactOfLoss": "High",
+      "riskOfLoss": "Medium"
+    },
+    "leadsScores": {
+      "leadSelf": {
+        "behavioralLevel": "5",
+        "evidence": "Exceptional self-awareness and emotional intelligence. Continuously invests in personal development and seeks feedback.",
+        "developmentNeeded": "Minimal",
+        "notes": "Strong executive presence and authentic leadership style."
+      },
+      "engageOthers": {
+        "behavioralLevel": "5",
+        "evidence": "Outstanding ability to build relationships and influence across all organizational levels. Highly trusted advisor to executives.",
+        "developmentNeeded": "Minimal",
+        "notes": "Natural talent for engaging and motivating others."
+      },
+      "achieveResults": {
+        "behavioralLevel": "4",
+        "evidence": "Strong track record of delivering on HR initiatives and organizational improvements. Meets commitments consistently.",
+        "developmentNeeded": "Moderate",
+        "notes": "Continue developing business results orientation beyond HR metrics."
+      },
+      "developCoalitions": {
+        "behavioralLevel": "3",
+        "evidence": "Good at building internal partnerships. Some experience with external stakeholder engagement.",
+        "developmentNeeded": "Extensive",
+        "notes": "Needs more exposure to community and external partnership development."
+      },
+      "systemsTransformation": {
+        "behavioralLevel": "4",
+        "evidence": "Led successful organizational change initiatives. Strong understanding of organizational systems and culture.",
+        "developmentNeeded": "Moderate",
+        "notes": "Expand systems thinking to include broader healthcare ecosystem."
+      }
+    },
+    "totalLeadsScore": 21.0,
+    "readinessRating": "Developing",
+    "timeToReadiness": "1-2 years",
+    "developmentPathway": "Moderate"
+  }
+]
