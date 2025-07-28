@@ -9,6 +9,7 @@ import Loading from "@/components/ui/Loading"
 import Error from "@/components/ui/Error"
 import { candidateService } from "@/services/api/candidateService"
 import { format } from "date-fns"
+import Chart from "react-apexcharts"
 
 const CandidateProfile = () => {
   const { id } = useParams()
@@ -16,6 +17,7 @@ const CandidateProfile = () => {
   const [candidate, setCandidate] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+  const [activeChart, setActiveChart] = useState("trend")
 
   const loadCandidate = async () => {
     try {
@@ -41,7 +43,174 @@ const CandidateProfile = () => {
 
   const leadsScores = candidate.leadsScores || {}
   const hasLeadsScores = Object.values(leadsScores).some(domain => domain?.behavioralLevel)
+  const historicalData = candidate.historicalLeadsData || []
 
+  const domainLabels = {
+    leadSelf: "Lead Self",
+    engageOthers: "Engage Others", 
+    achieveResults: "Achieve Results",
+    developCoalitions: "Develop Coalitions",
+    systemsTransformation: "Systems Transformation"
+  }
+
+  const domainColors = {
+    leadSelf: "#0056b3",
+    engageOthers: "#17a2b8",
+    achieveResults: "#28a745",
+    developCoalitions: "#ffc107",
+    systemsTransformation: "#dc3545"
+  }
+
+  // Generate trend line chart data
+  const getTrendChartOptions = () => {
+    if (!historicalData.length) return { series: [], options: {} }
+
+    const series = Object.keys(domainLabels).map(domain => ({
+      name: domainLabels[domain],
+      data: historicalData.map(entry => ({
+        x: entry.date,
+        y: entry.scores[domain] || 0
+      })),
+      color: domainColors[domain]
+    }))
+
+    const options = {
+      chart: {
+        type: 'line',
+        height: 350,
+        toolbar: { show: true },
+        animations: { enabled: true, speed: 800 }
+      },
+      stroke: {
+        curve: 'smooth',
+        width: 3
+      },
+      xaxis: {
+        type: 'datetime',
+        labels: {
+          format: 'MMM yyyy'
+        }
+      },
+      yaxis: {
+        min: 0,
+        max: 5,
+        tickAmount: 5,
+        labels: {
+          formatter: (val) => val.toFixed(1)
+        }
+      },
+      tooltip: {
+        x: {
+          format: 'MMM yyyy'
+        },
+        y: {
+          formatter: (val) => `${val}/5`
+        }
+      },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'center'
+      },
+      grid: {
+        borderColor: '#f1f5f9'
+      }
+    }
+
+    return { series, options }
+  }
+
+  // Generate current scores bar chart
+  const getCurrentScoresChart = () => {
+    const series = [{
+      name: 'Current Score',
+      data: Object.entries(leadsScores).map(([domain, score]) => ({
+        x: domainLabels[domain],
+        y: parseInt(score?.behavioralLevel) || 0,
+        fillColor: domainColors[domain]
+      }))
+    }]
+
+    const options = {
+      chart: {
+        type: 'bar',
+        height: 300,
+        toolbar: { show: false }
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 8,
+          distributed: true,
+          horizontal: false
+        }
+      },
+      xaxis: {
+        categories: Object.values(domainLabels),
+        labels: {
+          style: { fontSize: '12px' }
+        }
+      },
+      yaxis: {
+        min: 0,
+        max: 5,
+        tickAmount: 5
+      },
+      tooltip: {
+        y: {
+          formatter: (val) => `${val}/5`
+        }
+      },
+      legend: { show: false },
+      grid: {
+        borderColor: '#f1f5f9'
+      }
+    }
+
+    return { series, options }
+  }
+
+  // Generate progress comparison chart
+  const getProgressChart = () => {
+    if (!historicalData.length) return { series: [], options: {} }
+
+    const firstEntry = historicalData[0]
+    const lastEntry = historicalData[historicalData.length - 1]
+
+    const series = [{
+      name: 'Initial Score',
+      data: Object.entries(domainLabels).map(([domain, label]) => 
+        firstEntry.scores[domain] || 0
+      )
+    }, {
+      name: 'Current Score',
+      data: Object.entries(domainLabels).map(([domain, label]) => 
+        lastEntry.scores[domain] || 0
+      )
+    }]
+
+    const options = {
+      chart: {
+        type: 'radar',
+        height: 350
+      },
+      xaxis: {
+        categories: Object.values(domainLabels)
+      },
+      yaxis: {
+        min: 0,
+        max: 5,
+        tickAmount: 5
+      },
+      colors: ['#dc3545', '#28a745'],
+      markers: {
+        size: 4
+      },
+      legend: {
+        position: 'top'
+      }
+    }
+
+    return { series, options }
+  }
   return (
     <div className="p-6 max-w-6xl mx-auto space-y-6">
       {/* Header */}
@@ -154,6 +323,174 @@ const CandidateProfile = () => {
             </CardContent>
           </Card>
 
+{/* LEADS Score Analysis with Interactive Charts */}
+          {hasLeadsScores && (
+            <Card>
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                  <CardTitle className="flex items-center space-x-2">
+                    <ApperIcon name="TrendingUp" size={20} />
+                    <span>LEADS Score Analysis</span>
+                    <div className="flex items-center space-x-1">
+                      <span className="text-2xl font-bold text-primary">{candidate.totalLeadsScore}</span>
+                      <span className="text-sm text-gray-500">/25</span>
+                    </div>
+                  </CardTitle>
+                  <div className="flex space-x-2">
+                    <Button
+                      variant={activeChart === "trend" ? "primary" : "outline"}
+                      size="sm"
+                      onClick={() => setActiveChart("trend")}
+                    >
+                      <ApperIcon name="TrendingUp" size={16} />
+                      Trend
+                    </Button>
+                    <Button
+                      variant={activeChart === "current" ? "primary" : "outline"}
+                      size="sm"
+                      onClick={() => setActiveChart("current")}
+                    >
+                      <ApperIcon name="BarChart3" size={16} />
+                      Current
+                    </Button>
+                    <Button
+                      variant={activeChart === "progress" ? "primary" : "outline"}
+                      size="sm"
+                      onClick={() => setActiveChart("progress")}
+                    >
+                      <ApperIcon name="Target" size={16} />
+                      Progress
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-3 gap-4 text-center mb-6">
+                  <div>
+                    <StatusBadge status={candidate.readinessRating} />
+                    <p className="text-xs text-gray-500 mt-1">Readiness</p>
+                  </div>
+                  <div>
+                    <span className="font-medium">{candidate.timeToReadiness}</span>
+                    <p className="text-xs text-gray-500 mt-1">Time to Ready</p>
+                  </div>
+                  <div>
+                    <span className="font-medium">{candidate.developmentPathway}</span>
+                    <p className="text-xs text-gray-500 mt-1">Development</p>
+                  </div>
+                </div>
+
+                {/* Chart Display */}
+                <div className="w-full">
+                  {activeChart === "trend" && historicalData.length > 0 && (
+                    <div>
+                      <h4 className="text-lg font-semibold mb-4">Score Progression Over Time</h4>
+                      <Chart
+                        options={getTrendChartOptions().options}
+                        series={getTrendChartOptions().series}
+                        type="line"
+                        height={350}
+                      />
+                      <p className="text-sm text-gray-600 mt-2">
+                        Track how LEADS domain scores have evolved over time, showing improvement trends and areas of focus.
+                      </p>
+                    </div>
+                  )}
+
+                  {activeChart === "trend" && historicalData.length === 0 && (
+                    <div className="text-center py-8">
+                      <ApperIcon name="TrendingUp" size={48} className="mx-auto text-gray-400 mb-2" />
+                      <p className="text-gray-500">No historical data available for trend analysis</p>
+                    </div>
+                  )}
+
+                  {activeChart === "current" && (
+                    <div>
+                      <h4 className="text-lg font-semibold mb-4">Current Domain Scores</h4>
+                      <Chart
+                        options={getCurrentScoresChart().options}
+                        series={getCurrentScoresChart().series}
+                        type="bar"
+                        height={300}
+                      />
+                      <p className="text-sm text-gray-600 mt-2">
+                        Current performance across all five LEADS domains, showing strengths and development opportunities.
+                      </p>
+                    </div>
+                  )}
+
+                  {activeChart === "progress" && historicalData.length > 0 && (
+                    <div>
+                      <h4 className="text-lg font-semibold mb-4">Overall Progress Comparison</h4>
+                      <Chart
+                        options={getProgressChart().options}
+                        series={getProgressChart().series}
+                        type="radar"
+                        height={350}
+                      />
+                      <p className="text-sm text-gray-600 mt-2">
+                        Radar chart comparing initial scores with current performance, highlighting areas of greatest improvement.
+                      </p>
+                    </div>
+                  )}
+
+                  {activeChart === "progress" && historicalData.length === 0 && (
+                    <div className="text-center py-8">
+                      <ApperIcon name="Target" size={48} className="mx-auto text-gray-400 mb-2" />
+                      <p className="text-gray-500">No historical data available for progress comparison</p>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* LEADS Domain Details */}
+          {hasLeadsScores && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Domain Assessment Details</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {Object.entries(leadsScores).map(([domain, score]) => {
+                  return score?.behavioralLevel ? (
+                    <div key={domain} className="border-l-4 pl-4" style={{ borderColor: domainColors[domain] }}>
+                      <div className="flex justify-between items-start mb-2">
+                        <h4 className="font-semibold text-gray-900">{domainLabels[domain]}</h4>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-bold text-lg" style={{ color: domainColors[domain] }}>
+                            {score.behavioralLevel}/5
+                          </span>
+                          <div className="w-20 bg-gray-200 rounded-full h-3">
+                            <div
+                              className="h-3 rounded-full transition-all"
+                              style={{ 
+                                width: `${(parseInt(score.behavioralLevel) / 5) * 100}%`,
+                                backgroundColor: domainColors[domain]
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      {score.evidence && (
+                        <div className="mb-2">
+                          <label className="text-sm font-medium text-gray-500">Evidence</label>
+                          <p className="text-gray-700 text-sm mt-1">{score.evidence}</p>
+                        </div>
+                      )}
+                      {score.notes && (
+                        <div>
+                          <label className="text-sm font-medium text-gray-500">Development Notes</label>
+                          <p className="text-gray-700 text-sm mt-1">{score.notes}</p>
+                        </div>
+                      )}
+                    </div>
+                  ) : null
+                })}
+              </CardContent>
+            </Card>
+          )}
+
           {/* LEADS Accomplishments */}
           {(candidate.leadershipAccomplishments || candidate.demonstratedStrengths) && (
             <Card>
@@ -178,155 +515,111 @@ const CandidateProfile = () => {
           )}
 
           {/* Work Experience */}
-          {candidate.workHistory && candidate.workHistory.length > 0 && (
+          {candidate.workHistory && (
             <Card>
               <CardHeader>
                 <CardTitle>Work Experience</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  {candidate.workHistory.filter(w => !w.isExternal).length > 0 && (
-                    <div>
-                      <h4 className="font-medium text-gray-900 mb-3">HHS Experience</h4>
-                      <div className="space-y-3">
-                        {candidate.workHistory.filter(w => !w.isExternal).map((work, index) => (
-                          <div key={index} className="border-l-2 border-primary pl-4">
-                            <h5 className="font-medium text-gray-900">{work.title}</h5>
-                            <p className="text-sm text-gray-600">{work.division}</p>
-                            <p className="text-xs text-gray-500">
-                              {work.startDate && format(new Date(work.startDate), "MMM yyyy")} - 
-                              {work.endDate ? format(new Date(work.endDate), "MMM yyyy") : "Present"}
-                            </p>
-                          </div>
-                        ))}
+              <CardContent className="space-y-4">
+                {candidate.workHistory.map((job, index) => (
+                  <div key={index} className="border-l-2 border-primary pl-4">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h4 className="font-semibold text-gray-900">{job.title}</h4>
+                        <p className="text-gray-600">{job.division}</p>
+                        <p className="text-sm text-gray-500">
+                          {format(new Date(job.startDate), "MMM yyyy")} - {job.endDate ? format(new Date(job.endDate), "MMM yyyy") : "Present"}
+                        </p>
                       </div>
+                      {job.isExternal && (
+                        <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                          External
+                        </span>
+                      )}
                     </div>
-                  )}
-
-                  {candidate.workHistory.filter(w => w.isExternal).length > 0 && (
-                    <div>
-                      <h4 className="font-medium text-gray-900 mb-3">External Experience</h4>
-                      <div className="space-y-3">
-                        {candidate.workHistory.filter(w => w.isExternal).map((work, index) => (
-                          <div key={index} className="border-l-2 border-secondary pl-4">
-                            <h5 className="font-medium text-gray-900">{work.title}</h5>
-                            <p className="text-sm text-gray-600">{work.division}</p>
-                            <p className="text-xs text-gray-500">
-                              {work.startDate && format(new Date(work.startDate), "MMM yyyy")} - 
-                              {work.endDate ? format(new Date(work.endDate), "MMM yyyy") : "Present"}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                  </div>
+                ))}
               </CardContent>
             </Card>
           )}
 
           {/* Education */}
-          {candidate.education && candidate.education.length > 0 && (
+          {candidate.education && (
             <Card>
               <CardHeader>
                 <CardTitle>Education</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {candidate.education.map((edu, index) => (
-                    <div key={index} className="border-l-2 border-success pl-4">
-                      <h5 className="font-medium text-gray-900">{edu.program}</h5>
-                      <p className="text-sm text-gray-600">{edu.institution}</p>
-                      <p className="text-xs text-gray-500">{edu.level}</p>
+              <CardContent className="space-y-4">
+                {candidate.education.map((edu, index) => (
+                  <div key={index} className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-semibold text-gray-900">{edu.program}</h4>
+                      <p className="text-gray-600">{edu.institution}</p>
                     </div>
-                  ))}
-                </div>
+                    <span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">
+                      {edu.level}
+                    </span>
+                  </div>
+                ))}
               </CardContent>
             </Card>
           )}
 
           {/* Development Plan */}
-          {candidate.developmentPlan && (candidate.developmentPlan.keyAreas || candidate.developmentPlan.actions) && (
+          {candidate.developmentPlan && (
             <Card>
               <CardHeader>
                 <CardTitle>Development Plan</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {candidate.developmentPlan.keyAreas && (
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">Key Development Areas</label>
-                    <p className="text-gray-900 mt-1">{candidate.developmentPlan.keyAreas}</p>
-                  </div>
-                )}
-                {candidate.developmentPlan.actions && (
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">Planned Actions</label>
-                    <p className="text-gray-900 mt-1">{candidate.developmentPlan.actions}</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          )}
-        </div>
-
-        {/* Right Column */}
-        <div className="space-y-6">
-          {/* LEADS Score Overview */}
-          {hasLeadsScores && (
-            <Card>
-              <CardHeader>
-                <CardTitle>LEADS Score Overview</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <ProgressRing
-                  progress={candidate.totalLeadsScore ? (candidate.totalLeadsScore / 25) * 100 : 0}
-                  value={candidate.totalLeadsScore ? candidate.totalLeadsScore.toFixed(1) : "0.0"}
-                  label="Total Score"
-                  size={120}
-                />
-                <div className="mt-4 space-y-2">
-                  <div className="text-sm text-gray-600">Development Pathway</div>
-                  <StatusBadge status={candidate.developmentPathway || "Not Assessed"} />
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Key Development Areas</label>
+                  <p className="text-gray-900 mt-1">{candidate.developmentPlan.keyAreas}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Recommended Actions</label>
+                  <p className="text-gray-900 mt-1">{candidate.developmentPlan.actions}</p>
                 </div>
               </CardContent>
             </Card>
           )}
 
-          {/* LEADS Domain Scores */}
-          {hasLeadsScores && (
+          {/* Retention Profile */}
+          {candidate.retentionProfile && (
             <Card>
               <CardHeader>
-                <CardTitle>Domain Scores</CardTitle>
+                <CardTitle>Retention Profile</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {Object.entries(leadsScores).map(([domain, score]) => {
-                  const domainLabels = {
-                    leadSelf: "Lead Self",
-                    engageOthers: "Engage Others", 
-                    achieveResults: "Achieve Results",
-                    developCoalitions: "Develop Coalitions",
-                    systemsTransformation: "Systems Transformation"
-                  }
-                  
-                  return score?.behavioralLevel ? (
-                    <div key={domain} className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">{domainLabels[domain]}</span>
-                      <div className="flex items-center space-x-2">
-                        <span className="font-medium">{score.behavioralLevel}/5</span>
-                        <div className="w-16 bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-primary h-2 rounded-full transition-all"
-                            style={{ width: `${(parseInt(score.behavioralLevel) / 5) * 100}%` }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ) : null
-                })}
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Retention Factors</label>
+                  <p className="text-gray-900 mt-1">{candidate.retentionProfile.factors}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Potential Reason for Leaving</label>
+                  <p className="text-gray-900 mt-1">{candidate.retentionProfile.reasonForLeaving}</p>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">Impact of Loss</label>
+                    <StatusBadge 
+                      status={candidate.retentionProfile.impactOfLoss} 
+                      variant={candidate.retentionProfile.impactOfLoss === "High" ? "error" : 
+                              candidate.retentionProfile.impactOfLoss === "Medium" ? "warning" : "success"}
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">Risk of Loss</label>
+                    <StatusBadge 
+                      status={candidate.retentionProfile.riskOfLoss} 
+                      variant={candidate.retentionProfile.riskOfLoss === "High" ? "error" : 
+                              candidate.retentionProfile.riskOfLoss === "Medium" ? "warning" : "success"}
+                    />
+                  </div>
+                </div>
               </CardContent>
             </Card>
           )}
-
           {/* Retention Profile */}
           {candidate.retentionProfile && (
             <Card>

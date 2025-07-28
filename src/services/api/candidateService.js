@@ -14,13 +14,51 @@ class CandidateService {
     return [...this.candidates]
   }
 
-  async getById(id) {
+async getById(id) {
     await this.delay()
     const candidate = this.candidates.find(c => c.Id === id)
     if (!candidate) {
       throw new Error("Candidate not found")
     }
-    return { ...candidate }
+    
+    // Generate historical LEADS data for trend analysis
+    const historicalData = this.generateHistoricalLeadsData(candidate)
+    
+    return { ...candidate, historicalLeadsData: historicalData }
+  }
+
+  generateHistoricalLeadsData(candidate) {
+    if (!candidate.leadsScores) return []
+    
+    const currentDate = new Date()
+    const historicalData = []
+    
+    // Generate 12 months of historical data
+    for (let i = 11; i >= 0; i--) {
+      const date = new Date(currentDate)
+      date.setMonth(date.getMonth() - i)
+      
+      const scores = {}
+      Object.entries(candidate.leadsScores).forEach(([domain, score]) => {
+        const currentScore = parseInt(score.behavioralLevel) || 0
+        // Create realistic progression - start lower and gradually improve
+        const progressFactor = (12 - i) / 12
+        const baseScore = Math.max(1, currentScore - 2) // Start 2 points lower, minimum 1
+        const targetScore = currentScore
+        const currentProgressScore = baseScore + (targetScore - baseScore) * progressFactor
+        
+        // Add some natural variation
+        const variation = (Math.random() - 0.5) * 0.3
+        scores[domain] = Math.min(5, Math.max(1, currentProgressScore + variation))
+      })
+      
+      historicalData.push({
+        date: date.toISOString(),
+        scores
+      })
+    }
+    
+    return historicalData
   }
 
   async create(candidateData) {
