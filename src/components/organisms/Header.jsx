@@ -1,11 +1,17 @@
 import { useState, useRef, useEffect } from "react"
+import { useAuth } from "@/contexts/AuthContext"
 import ApperIcon from "@/components/ApperIcon"
 import Button from "@/components/atoms/Button"
 import { cn } from "@/utils/cn"
-
 const Header = ({ onMenuToggle, user = { name: "Admin User", role: "System Administrator" } }) => {
+  const { logout } = useAuth()
   const [showDropdown, setShowDropdown] = useState(false)
   const dropdownRef = useRef(null)
+
+  const handleLogout = () => {
+    logout()
+    setShowDropdown(false)
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -77,7 +83,10 @@ const Header = ({ onMenuToggle, user = { name: "Admin User", role: "System Admin
                   <span>Settings</span>
                 </button>
                 <hr className="my-1" />
-                <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
+<button 
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
+                >
                   <ApperIcon name="LogOut" className="w-4 h-4" />
                   <span>Sign out</span>
                 </button>
