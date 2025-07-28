@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Routes, Route } from "react-router-dom"
+import { useAuth } from "@/contexts/AuthContext"
 import Header from "@/components/organisms/Header"
 import Sidebar from "@/components/organisms/Sidebar"
 import Dashboard from "@/components/pages/Dashboard"
@@ -12,6 +13,7 @@ import CandidateProfile from "@/components/pages/CandidateProfile"
 
 const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { user } = useAuth()
 
   return (
     <div className="flex h-screen bg-background">
@@ -29,7 +31,7 @@ const Layout = () => {
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header onMenuToggle={() => setSidebarOpen(true)} />
         
-<main className="flex-1 overflow-y-auto bg-background">
+        <main className="flex-1 overflow-y-auto bg-background">
           <div className="h-full p-3 md:p-4 lg:p-6">
             <Routes>
               <Route path="/" element={<Dashboard />} />

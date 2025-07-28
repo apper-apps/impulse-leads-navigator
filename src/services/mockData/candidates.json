@@ -1,6 +1,7 @@
 [
   {
     "Id": 1,
+    "username": "sarah.johnson",
     "name": "Sarah Johnson",
     "department": "Executive Leadership",
     "portfolio": "Strategic Planning & Operations",
@@ -98,6 +99,7 @@
   },
   {
     "Id": 2,
+    "username": "michael.chen",
     "name": "Michael Chen",
     "department": "Clinical Services",
     "portfolio": "Quality & Patient Safety",
@@ -195,6 +197,7 @@
   },
   {
     "Id": 3,
+    "username": "jennifer.martinez",
     "name": "Jennifer Martinez",
     "department": "Finance",
     "portfolio": "Financial Planning & Analysis",
@@ -259,6 +262,7 @@
   },
   {
     "Id": 4,
+    "username": "david.thompson",
     "name": "David Thompson",
     "department": "Operations",
     "portfolio": "Facilities & Infrastructure",
@@ -323,6 +327,7 @@
   },
   {
     "Id": 5,
+    "username": "lisa.wang",
     "name": "Lisa Wang",
     "department": "Human Resources",
     "portfolio": "Talent Development & Organizational Effectiveness",
