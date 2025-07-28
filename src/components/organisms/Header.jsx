@@ -19,26 +19,27 @@ const Header = ({ onMenuToggle, user = { name: "Admin User", role: "System Admin
   }, [])
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-      <div className="flex h-16 items-center justify-between px-4 lg:px-6">
+<header className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <div className="flex h-14 md:h-16 items-center justify-between px-3 md:px-4 lg:px-6">
         {/* Mobile menu button */}
         <Button
           variant="ghost"
           size="icon"
-          className="lg:hidden"
+          className="lg:hidden min-h-[44px] min-w-[44px] -ml-2"
           onClick={onMenuToggle}
         >
           <ApperIcon name="Menu" size={20} />
         </Button>
 
         {/* Logo */}
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-            <ApperIcon name="Users" className="w-5 h-5 text-white" />
+        <div className="flex items-center space-x-2 md:space-x-3 flex-1 lg:flex-initial justify-center lg:justify-start">
+          <div className="w-7 h-7 md:w-8 md:h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+            <ApperIcon name="Users" className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </div>
-          <div className="hidden sm:block">
-            <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              LEADS Navigator
+          <div className="block">
+            <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <span className="hidden sm:inline">LEADS Navigator</span>
+              <span className="sm:hidden">LEADS</span>
             </h1>
           </div>
         </div>
@@ -52,11 +53,11 @@ const Header = ({ onMenuToggle, user = { name: "Admin User", role: "System Admin
             <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
               <ApperIcon name="User" className="w-4 h-4 text-white" />
             </div>
-            <div className="hidden md:block text-left">
-              <div className="text-sm font-medium text-gray-900">{user.name}</div>
-              <div className="text-xs text-gray-500">{user.role}</div>
+<div className="hidden sm:block text-left">
+              <div className="text-sm font-medium text-gray-900 truncate max-w-[120px] md:max-w-none">{user.name}</div>
+              <div className="text-xs text-gray-500 truncate max-w-[120px] md:max-w-none">{user.role}</div>
             </div>
-            <ApperIcon name="ChevronDown" className="w-4 h-4 text-gray-500" />
+            <ApperIcon name="ChevronDown" className="w-4 h-4 text-gray-500 hidden sm:block" />
           </button>
 
           {/* Dropdown menu */}

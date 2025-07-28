@@ -4,7 +4,7 @@ import Layout from "@/components/organisms/Layout"
 
 function App() {
   return (
-    <Router>
+<Router>
       <div className="min-h-screen bg-background font-sans">
         <Layout />
         <ToastContainer 
@@ -18,7 +18,7 @@ function App() {
           draggable
           pauseOnHover
           theme="light"
-          className="mt-16"
+          className="mt-16 !top-20 md:!top-16 !left-4 !right-4 md:!left-auto md:!right-4 !max-w-sm"
         />
       </div>
     </Router>

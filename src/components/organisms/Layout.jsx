@@ -29,8 +29,8 @@ const Layout = () => {
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header onMenuToggle={() => setSidebarOpen(true)} />
         
-        <main className="flex-1 overflow-y-auto">
-          <div className="h-full">
+<main className="flex-1 overflow-y-auto bg-background">
+          <div className="h-full p-3 md:p-4 lg:p-6">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/candidates" element={<Candidates />} />
